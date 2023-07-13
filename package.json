@@ -1,0 +1,27 @@
+{
+  "name": "techjr-server-test",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:EdigarCarvalho/TechJr-server-test.git",
+  "author": "EdgarCarvalho, IanSilva, LucianoAmorim",
+  "license": "MIT",
+  "scripts": {
+    "dev": "tsx watch src/server.ts"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-async-errors": "^3.1.1",
+    "jsonwebtoken": "^9.0.1",
+    "nodemailer": "^6.9.3",
+    "uuid": "^9.0.0",
+    "yup": "^1.2.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.17",
+    "tsx": "^3.12.6",
+    "typescript": "^5.0.4"
+  }
+}

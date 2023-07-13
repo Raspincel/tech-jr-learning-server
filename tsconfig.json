@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+      "target": "es2016",
+      "module": "commonjs",
+      "typeRoots": [
+        "src/@types",
+        "node_modules/@types"
+      ],
+      "outDir": "dist",
+      "rootDir": "src",
+      "sourceMap": true,
+      "esModuleInterop": true,
+      "forceConsistentCasingInFileNames": true,
+      "skipLibCheck": true,
+      "experimentalDecorators": true,
+      "emitDecoratorMetadata": true,
+      "strictPropertyInitialization": false
+    },
+    "include": [
+      "src",
+      "app.ts"
+  , "src/docs"  ],
+    "exclude": [
+      "node_modules"
+    ]
+  }
