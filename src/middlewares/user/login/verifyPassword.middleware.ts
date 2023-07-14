@@ -3,8 +3,12 @@ import { compare } from 'bcrypt'
 import { AppError } from '../../../error';
 import prisma from '../../../database';
 
-export default async function verifyPasswordMiddleware(req: Request, res: Response, next: NextFunction){
-  const { email, password } = req.body as { email: string, password: string };
+export default async function verifyPasswordMiddleware(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  const { email, password } = req.body as { email: string; password: string }
 
   const isCorrectPassword = compare(password, req.user.password);
 
@@ -13,6 +17,5 @@ export default async function verifyPasswordMiddleware(req: Request, res: Respon
     email
   })
 
-  next();
+  next()
 }
-

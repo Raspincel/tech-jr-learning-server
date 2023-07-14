@@ -25,14 +25,6 @@ import { Router } from 'express'
 const userRouter = Router()
 
 userRouter.post(
-  '/login',
-  verifyShape(LoginSchema),
-  verifyEmailExistanceMiddleware,
-  verifyPasswordMiddleware,
-  loginController,
-)
-
-userRouter.post(
   '/register',
   verifyShape(RegisterSchema),
   verifyEmailAvailabilityMiddleware,
@@ -40,30 +32,30 @@ userRouter.post(
   registerController,
 )
 
-userRouter.delete(
-  '',
-  validateTokenMiddleware,
-  deleteController
+userRouter.post(
+  '/login',
+  verifyShape(LoginSchema),
+  verifyEmailExistanceMiddleware,
+  verifyPasswordMiddleware,
+  loginController,
 )
 
-userRouter.get(
-  '',
-  validateTokenMiddleware,
-  getUserController
-  )
+userRouter.delete('', validateTokenMiddleware, deleteController)
+
+userRouter.get('', validateTokenMiddleware, getUserController)
 
 userRouter.post(
   '/forgot',
   verifyShape(ForgotSchema),
   verifyEmailExistanceMiddleware,
-  sendResetTokenController
-  )
+  sendResetTokenController,
+)
 
 userRouter.post(
   '/reset',
   verifyShape(ResetSchema),
   validateTokenMiddleware,
-  resetPasswordController
+  resetPasswordController,
 )
 
 export default userRouter
