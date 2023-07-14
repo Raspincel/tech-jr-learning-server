@@ -8,7 +8,7 @@ import verifyExistenceRegisterMiddleware from '../middlewares/product/verifyExis
 import verifyExistenceDeleteMiddleware from '../middlewares/product/verifyExistenceDelete.middleware'
 
 // controllers
-import { deleteProductController, registerProductController } from '../controllers/product.controller'
+import { deleteProductController, getAllController, registerProductController } from '../controllers/product.controller'
 
 // routes
 import { Router } from 'express'
@@ -27,6 +27,12 @@ productRouter.delete(
     validateTokenMiddleware,
     verifyExistenceDeleteMiddleware,
     deleteProductController
+)
+
+productRouter.get(
+    '/all',
+    validateTokenMiddleware,
+    getAllController
 )
 
 export default productRouter
