@@ -32,6 +32,6 @@ model Log {
   id String @id @default(dbgenerated("uuid_generate_v4()"))
   description Json
   createdAt DateTime @default(now())
-  user User @relation(fields: [userId], references: [id])
-  userId String
+  user User? @relation(fields: [userId], references: [id])
+  userId String?
 }

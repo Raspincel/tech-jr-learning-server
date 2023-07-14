@@ -1,21 +1,26 @@
 import { Request, Response, NextFunction } from 'express'
 import jwt from 'jsonwebtoken'
 import prisma from '../../database'
+import { AppError } from '../../error'
 
 export default async function validateTokenMiddleware(req: Request, res: Response, next: NextFunction) {
     const { authorization } = req.headers
 
-    const token = authorization.split(' ')[1]
+    const token = authorization ? authorization.split(' ')[1] : undefined
 
-    if (!token) return res.status(401).json({ message: "You don't have enough credentials to do this operation. Did you forget to send your token?" })
+    if (!token) throw new AppError(401, "You don't have enough credentials to do this operation. Did you forget to send your token?", { message: `User didn't send a token when trying to access ${req.url}`})
 
     try {
         const { email } = jwt.verify(token, process.env.SECRET_KEY) as { email: string }
+        req.user.email = email
         const user = await prisma.user.findUnique({ where: { email } }) 
         req.user = { ...user }
         next()
 
     } catch(err) {
-        return res.status(404).json({ message: "There is not user associated to the token you sent."})
+        throw new AppError(404, "There is no user associated to the token you sent.", {
+            message: `User either sent an invalid token when trying to access ${req.url}, or sent a token containing an email that is not registered in the database`,
+            email: req.user?.email ? req.user.email : undefined
+        })
     }    
 }
