@@ -27,7 +27,7 @@ model Product {
   updatedAt DateTime @default(now())
 
   user String
-  User_Product_referretToUser User @relation("Product_user", fields: [user], references: [email])
+    User_Product_referretToUser User @relation("Product_user", fields: [user], references: [email], onDelete: Cascade)
 }
 
 model Log {
