@@ -1,12 +1,11 @@
 import express from 'express'
 import cors from 'cors'
+import userRouter from './routes/user.routes'
 
 const app = express()
 app.use(cors())
 app.use(express.json())
 
-import loginRouter from './routes/login.routes'
-
-app.use('/login', loginRouter);
+app.use('/user', userRouter)
 
 export default app
