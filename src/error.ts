@@ -23,14 +23,8 @@ export async function errorHandler(err: Error, req: Request, res: Response, next
     if (err instanceof AppError) {
         res.status(err.status).json({ message: err.message })
 
-        console.log(err)
         const { message, email, id } = err.log
-        const user = (id && email) ? {
-            connect: {
-                id: id ? id : "",
-                email: email ? email : ""
-            }
-        } : undefined
+        const user = (email) ? email : undefined
 
         await prisma.log.create({
             data: {

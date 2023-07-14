@@ -14,24 +14,27 @@ model User {
   createdAt DateTime @default(now()) 
   updatedAt DateTime @default(now())
   name String @db.VarChar(255)
-  products Product[]
-  logs Log[]
+
+  logs Log[] @relation("Log_user")
+  products Product[] @relation("Product_user")
 }
 
 model Product {
   id String @id @default(dbgenerated("uuid_generate_v4()"))
   name String @unique @db.VarChar(255)
-  price Int
+  price Float
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
-  user User @relation(fields: [userId], references: [id])
-  userId String
+
+  user String
+  User_Product_referretToUser User @relation("Product_user", fields: [user], references: [email])
 }
 
 model Log {
   id String @id @default(dbgenerated("uuid_generate_v4()"))
   description Json
   createdAt DateTime @default(now())
-  user User? @relation(fields: [userId], references: [id])
-  userId String?
+  
+  user  String?
+  User_Log_referrerToUser User? @relation("Log_user", fields: [user], references: [email])
 }
