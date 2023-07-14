@@ -1,14 +1,15 @@
-import { Router } from 'express'
-// import { PrismaClient } from '@prisma/client'
-// import registerController from '../controllers/register.controller'
+// schemas
 import verifyShape from '../schemas/verifyShape.schema'
 import { ForgotSchema, LoginSchema, RegisterSchema, ResetSchema } from '../schemas/user.schema'
+
+// middlewares
 import verifyEmailValidity from '../middlewares/user/register/verifyEmailValidity.middleware'
 import verifyEmailExistanceMiddleware from '../middlewares/user/login/verifyEmailExistance.middleware'
 import verifyEmailAvailabilityMiddleware from '../middlewares/user/register/verifyEmailAvailability.middleware'
-import validateTokenMiddleware from '../middlewares/user/validateToken.middleware'
-
+import validateTokenMiddleware from '../middlewares/validateToken.middleware'
 import verifyPasswordMiddleware from '../middlewares/user/login/verifyPassword.middleware'
+
+// controllers 
 import {
   registerController,
   loginController,
@@ -18,6 +19,9 @@ import {
   resetPasswordController,
 } from '../controllers/user.controller'
 
+
+// routes
+import { Router } from 'express'
 const userRouter = Router()
 
 userRouter.post(
