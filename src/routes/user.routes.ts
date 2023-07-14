@@ -2,7 +2,12 @@ import { Router } from 'express'
 // import { PrismaClient } from '@prisma/client'
 // import registerController from '../controllers/register.controller'
 import verifyShape from '../schemas/verifyShape.schema'
-import { ForgotSchema, LoginSchema, RegisterSchema, ResetSchema } from '../schemas/user.schema'
+import {
+  ForgotSchema,
+  LoginSchema,
+  RegisterSchema,
+  ResetSchema,
+} from '../schemas/user.schema'
 import verifyEmailValidity from '../middlewares/user/register/verifyEmailValidity.middleware'
 import verifyEmailExistanceMiddleware from '../middlewares/user/login/verifyEmailExistance.middleware'
 import verifyEmailAvailabilityMiddleware from '../middlewares/user/register/verifyEmailAvailability.middleware'
@@ -21,14 +26,6 @@ import {
 const userRouter = Router()
 
 userRouter.post(
-  '/login',
-  verifyShape(LoginSchema),
-  verifyEmailExistanceMiddleware,
-  verifyPasswordMiddleware,
-  loginController,
-)
-
-userRouter.post(
   '/register',
   verifyShape(RegisterSchema),
   verifyEmailAvailabilityMiddleware,
@@ -36,30 +33,30 @@ userRouter.post(
   registerController,
 )
 
-userRouter.delete(
-  '',
-  validateTokenMiddleware,
-  deleteController
+userRouter.post(
+  '/login',
+  verifyShape(LoginSchema),
+  verifyEmailExistanceMiddleware,
+  verifyPasswordMiddleware,
+  loginController,
 )
 
-userRouter.get(
-  '',
-  validateTokenMiddleware,
-  getUserController
-  )
+userRouter.delete('', validateTokenMiddleware, deleteController)
+
+userRouter.get('', validateTokenMiddleware, getUserController)
 
 userRouter.post(
   '/forgot',
   verifyShape(ForgotSchema),
   verifyEmailExistanceMiddleware,
-  sendResetTokenController
-  )
+  sendResetTokenController,
+)
 
 userRouter.post(
   '/reset',
   verifyShape(ResetSchema),
   validateTokenMiddleware,
-  resetPasswordController
+  resetPasswordController,
 )
 
 export default userRouter
