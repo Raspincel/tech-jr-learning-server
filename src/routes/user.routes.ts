@@ -4,7 +4,7 @@ import { ForgotSchema, LoginSchema, RegisterSchema, ResetSchema } from '../schem
 
 // middlewares
 import verifyEmailValidity from '../middlewares/user/register/verifyEmailValidity.middleware'
-import verifyEmailExistanceMiddleware from '../middlewares/user/login/verifyEmailExistance.middleware'
+import verifyEmailExistanceMiddleware from '../middlewares/user/login/verifyEmailExistence.middleware'
 import verifyEmailAvailabilityMiddleware from '../middlewares/user/register/verifyEmailAvailability.middleware'
 import validateTokenMiddleware from '../middlewares/validateToken.middleware'
 import verifyPasswordMiddleware from '../middlewares/user/login/verifyPassword.middleware'
