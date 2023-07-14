@@ -11,6 +11,7 @@ import {
   loginController,
 } from '../controllers/user.controller'
 import verifyEmailAvailabilityMiddleware from '../middlewares/user/register/verifyEmailAvailability.middleware'
+import validateTokenMiddleware from '../middlewares/user/validateToken.middleware'
 
 const userRouter = Router()
 
@@ -28,6 +29,11 @@ userRouter.post(
   verifyEmailAvailabilityMiddleware,
   verifyEmailValidity,
   registerController,
+)
+
+userRouter.delete(
+  '/delete',
+  validateTokenMiddleware
 )
 
 export default userRouter
