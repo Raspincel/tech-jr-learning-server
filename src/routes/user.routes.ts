@@ -10,6 +10,7 @@ import {
   registerController,
   loginController,
   deleteController,
+  getUserController,
 } from '../controllers/user.controller'
 import verifyEmailAvailabilityMiddleware from '../middlewares/user/register/verifyEmailAvailability.middleware'
 import validateTokenMiddleware from '../middlewares/user/validateToken.middleware'
@@ -37,5 +38,11 @@ userRouter.delete(
   validateTokenMiddleware,
   deleteController
 )
+
+userRouter.get(
+  '',
+  validateTokenMiddleware,
+  getUserController
+  )
 
 export default userRouter

@@ -9,7 +9,7 @@ export default async function validateTokenMiddleware(req: Request, res: Respons
 
     if (!token) return res.status(401).json({ message: "You don't have enough credentials to do this operation. Did you forget to send your token?" })
 
-    const { email } = await jwt.verify(token, process.env.SECRET_KEY) as { email: string }
+    const { email } = jwt.verify(token, process.env.SECRET_KEY) as { email: string }
     
     if (!email) return res.status(401).json({ message: "You don't have enough credentials to do this operation. Like, there is no user associated to the token you sent."})
 
