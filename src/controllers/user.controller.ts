@@ -3,6 +3,7 @@ import registerService from '../services/users/register.service'
 import loginService from '../services/users/login.service'
 import deleteService from '../services/users/delete.service';
 import getUserService from '../services/users/getUser.service';
+import sendResetTokenService from '../services/users/sendResetToken.service';
 
 export async function registerController (req: Request, res: Response){
     const data = req.body as { email: string, password: string, name: string }; 
@@ -32,4 +33,11 @@ export async function getUserController (req: Request, res: Response) {
     const user = await getUserService(id)
 
     return res.status(200).json({ user })
+}
+
+export async function sendResetTokenController (req: Request, res: Response) {
+    const { email, name } = req.user as { email: string, name: string }
+    const { message } = sendResetTokenService(email, name) as { message: string }
+
+    res.status(202).json({ message })
 }

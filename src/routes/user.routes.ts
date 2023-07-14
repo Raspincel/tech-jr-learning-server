@@ -4,13 +4,15 @@ import { Router } from 'express'
 import verifyShape from '../schemas/verifyShape.schema'
 import { LoginSchema, RegisterSchema } from '../schemas/user.schema'
 import verifyEmailValidity from '../middlewares/user/register/verifyEmailValidity.middleware'
-import verifyEmailExistMiddleware from '../middlewares/user/login/verifyEmailExist.middleware'
+import verifyEmailExistanceMiddleware from '../middlewares/user/login/verifyEmailExistance.middleware'
+
 import verifyPasswordMiddleware from '../middlewares/user/login/verifyPassword.middleware'
 import {
   registerController,
   loginController,
   deleteController,
   getUserController,
+  sendResetTokenController,
 } from '../controllers/user.controller'
 import verifyEmailAvailabilityMiddleware from '../middlewares/user/register/verifyEmailAvailability.middleware'
 import validateTokenMiddleware from '../middlewares/user/validateToken.middleware'
@@ -20,7 +22,7 @@ const userRouter = Router()
 userRouter.post(
   '/login',
   verifyShape(LoginSchema),
-  verifyEmailExistMiddleware,
+  verifyEmailExistanceMiddleware,
   verifyPasswordMiddleware,
   loginController,
 )
@@ -43,6 +45,12 @@ userRouter.get(
   '',
   validateTokenMiddleware,
   getUserController
+  )
+
+userRouter.post(
+  '/forgot',
+  verifyEmailExistanceMiddleware,
+  sendResetTokenController
   )
 
 export default userRouter
