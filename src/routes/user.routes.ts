@@ -2,7 +2,7 @@ import { Router } from 'express'
 // import { PrismaClient } from '@prisma/client'
 // import registerController from '../controllers/register.controller'
 import verifyShape from '../schemas/verifyShape.schema'
-import { LoginSchema, RegisterSchema, ResetSchema } from '../schemas/user.schema'
+import { ForgotSchema, LoginSchema, RegisterSchema, ResetSchema } from '../schemas/user.schema'
 import verifyEmailValidity from '../middlewares/user/register/verifyEmailValidity.middleware'
 import verifyEmailExistanceMiddleware from '../middlewares/user/login/verifyEmailExistance.middleware'
 import verifyEmailAvailabilityMiddleware from '../middlewares/user/register/verifyEmailAvailability.middleware'
@@ -50,6 +50,7 @@ userRouter.get(
 
 userRouter.post(
   '/forgot',
+  verifyShape(ForgotSchema),
   verifyEmailExistanceMiddleware,
   sendResetTokenController
   )
@@ -60,4 +61,5 @@ userRouter.post(
   validateTokenMiddleware,
   resetPasswordController
 )
+
 export default userRouter

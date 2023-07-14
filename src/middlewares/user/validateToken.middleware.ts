@@ -16,6 +16,6 @@ export default async function validateTokenMiddleware(req: Request, res: Respons
         next()
 
     } catch(err) {
-        return res.status(401).json({ message: "You don't have enough credentials to do this operation. Like, there is no user associated to the token you sent."})
+        return res.status(404).json({ message: "There is not user associated to the token you sent."})
     }    
 }
