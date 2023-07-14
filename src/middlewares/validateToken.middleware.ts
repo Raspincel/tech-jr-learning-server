@@ -5,7 +5,7 @@ import { AppError } from '../error'
 
 export default async function validateTokenMiddleware(req: Request, res: Response, next: NextFunction) {
     const { authorization } = req.headers
-
+    
     const token = authorization ? authorization.split(' ')[1] : undefined
     
     if (!token) throw new AppError(401, "You don't have enough credentials to do this operation. Did you forget to send your token?", { message: `(${req.method}) User didn't send a token when trying to access ${req.url}`})
