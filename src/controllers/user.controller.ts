@@ -1,6 +1,7 @@
 import { Router, Request, Response } from 'express'
 import registerService from '../services/users/register.service'
 import loginService from '../services/users/login.service'
+import deleteService from '../services/users/delete.service';
 
 export async function registerController (req: Request, res: Response){
     const data = req.body as { email: string, password: string, name: string }; 
@@ -16,4 +17,11 @@ export async function loginController (req: Request, res: Response) {
     const token = await loginService(email)
 
     res.status(200).json({ token})
+}
+
+export async function deleteController (req: Request, res: Response) {
+    const { id } = req.user as { id: string }
+    await deleteService(id)
+
+    return res.status(200).send()
 }
