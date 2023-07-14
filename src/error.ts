@@ -29,7 +29,7 @@ export async function errorHandler(err: Error, req: Request, res: Response, next
         await prisma.log.create({
             data: {
                 description: message,
-                user
+                user: user
             }
         })
 
