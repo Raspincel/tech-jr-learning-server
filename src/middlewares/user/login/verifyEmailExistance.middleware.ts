@@ -1,10 +1,8 @@
 import { Request, Response, NextFunction } from 'express'
-import { PrismaClient } from '@prisma/client'
+import prisma from '../../../database';
 
 export default async function verifyEmailExistanceMiddleware(req: Request, res: Response, next: NextFunction) {
   const { email } = req.body as { email: string };
-  
-  const prisma = new PrismaClient();
 
   const user = await prisma.user.findFirst({
     where: { email }
