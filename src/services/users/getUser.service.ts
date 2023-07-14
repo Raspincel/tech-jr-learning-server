@@ -7,5 +7,5 @@ export default async function getUserService(id: string) {
         }
     })
 
-    return { ...user, password: undefined }
+    return { ...user, password: undefined, id: undefined }
 }

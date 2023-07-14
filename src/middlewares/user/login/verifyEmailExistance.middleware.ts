@@ -10,7 +10,7 @@ export default async function verifyEmailExistanceMiddleware(req: Request, res: 
   });
 
   if (!user) throw new AppError(404, "There is no registered account associated to this e-mail. Please try using a different e-mail address.", {
-    message: "User tried to log in with an email address that was not previously registered in the database",
+    message: `(${req.method}) User tried to log in with an email address that was not previously registered in the database`,
     email
   })
   

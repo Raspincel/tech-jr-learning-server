@@ -13,7 +13,7 @@ export default async function verifyEmailAvailabilityMiddleware(req: Request, re
 
   if (user) throw new AppError(409, `This email is already registered. Please try with another email. If you think this is an error, please contact the developers`, 
   {
-    message: `User tried to register using the e-mail ${user.email}, but this e-mail was already registered and is owned by ${user.name}`, 
+    message: `(${req.method}) User tried to register using the e-mail ${user.email}, but this e-mail was already registered and is owned by ${user.name}`, 
     email: user.email
   })
   

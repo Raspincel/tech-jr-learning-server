@@ -16,7 +16,7 @@ export default async function verifyEmailValidity(req: Request, res: Response, n
     const { valid } = await emailValidator(email);
 
     if (!valid) throw new AppError(401, "Insert a valid email", {
-        message: "User tried to register with a false email. It is necessary to use a real email in this application",
+        message: `(${req.method}) User tried to register with a false email. It is necessary to use a real email in this application`,
         email
     })
 

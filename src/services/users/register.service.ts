@@ -16,6 +16,6 @@ export default async function registerService({ email, password, name }: iRegist
         }
     });
     
-    return { ...user, password: undefined };
+    return { ...user, password: undefined, id: undefined };
 }
 

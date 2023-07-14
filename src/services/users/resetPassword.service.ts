@@ -12,5 +12,5 @@ export default async function resetPasswordService(email: string, password) {
         }
     })
 
-    return { ...user, password: undefined }
+    return { ...user, password: undefined, id: undefined }
 }
