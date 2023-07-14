@@ -10,8 +10,8 @@ export default async function verifyEmailExistMiddleware(req: Request, res: Resp
     where: { email }
   });
 
-  if (!user) return res.status(409)
-  .json({ message: `This email does not exist. Please enter an existing email address.`});
+  if (!user) return res.status(404)
+  .json({ message: `There is no registered account associated to this e-mail. Please try using an valid e-mail address.`});
   
   next();
 }

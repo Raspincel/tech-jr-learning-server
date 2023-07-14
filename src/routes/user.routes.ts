@@ -10,6 +10,7 @@ import {
   registerController,
   loginController,
 } from '../controllers/user.controller'
+import verifyEmailAvailabilityMiddleware from '../middlewares/user/register/verifyEmailAvailability.middleware'
 
 const userRouter = Router()
 
@@ -24,6 +25,7 @@ userRouter.post(
 userRouter.post(
   '/register',
   verifyShape(RegisterSchema),
+  verifyEmailAvailabilityMiddleware,
   verifyEmailValidity,
   registerController,
 )
