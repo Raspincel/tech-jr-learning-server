@@ -9,11 +9,11 @@ Projeto desenvolvido com o propósito de dar um espaço para membros da Tech Jr 
 Existem 9 rotas disponíveis para acesso. Todas elas são, obviamente, precedidas pela URL do local em que o servidor está rodando.
 
 ## '/user/register'
-É uma das rotas mais importantes, visto que é possível possuir uma conta para acessar qualquer outra rota.
+É uma das rotas mais importantes, visto que é preciso possuir uma conta para acessar qualquer outra rota.
 ### Infos
   **método**: *POST*  
   **body**: Requer o envio do e-mail acadêmico, o nome (não necessariamente o nome real) do indivíduo e uma senha. Para que seja aprovada, a senha não possui tamanho mínimo ou necessidade de caracteres especiais, dada a trivialidade da aplicação.  
-  **retorno**: 
+  **retorno**:
 *   Em caso de sucesso:
     * Status: 201
     * Retorna um objeto JSON contendo as informações do usuário recém-cadastrado, com exceção da sua senha.
@@ -30,7 +30,7 @@ Existem 9 rotas disponíveis para acesso. Todas elas são, obviamente, precedida
 # '/user/login'
   **método**: *POST*  
   **body**: Requer o envio do e-mail e senha com os quais o usuário se cadastrou.  
-  **retorno**: 
+  **retorno**:
 *   Em caso de sucesso:
     * Status: 200
     * Retorna um token codificado que o usuário pode utilizar para validar sua identidade em outras requisições
@@ -44,7 +44,7 @@ Existem 9 rotas disponíveis para acesso. Todas elas são, obviamente, precedida
 # '/user'
   **método**: *DELETE*  
   **headers**: Requer o envio de um token de autenticação em Authorization. Exemplo: "Authorization": "Bearer ${token}"  
-  **retorno**: 
+  **retorno**:
 *   Em caso de sucesso:
     * Status: 200
     * Não retorna nada  
@@ -58,7 +58,7 @@ Existem 9 rotas disponíveis para acesso. Todas elas são, obviamente, precedida
 # '/user'
   **método**: *GET*  
   **headers**: Requer o envio de um token de autenticação em Authorization. Exemplo: "Authorization": "Bearer ${token}"  
-  **retorno**: 
+  **retorno**:
 *   Em caso de sucesso:
     * Status: 200
     * Retorna um objeto JSON contendo as informações do usuário recém-cadastrado, com exceção da sua senha.  
@@ -72,7 +72,7 @@ Existem 9 rotas disponíveis para acesso. Todas elas são, obviamente, precedida
 # '/user/forgot'
   **método**: *POST*  
   **body**: Requer o envio do e-mail da conta que o usuário deseja recuperar.  
-  **retorno**: 
+  **retorno**:
 *   Em caso de sucesso:
     * Status: 202
     * Retorna um objeto JSON uma mensagem afirmando que um e-mail foi enviado para o usuário, pedindo que que o mesmo aguarde até a sua chegada.  
@@ -87,7 +87,7 @@ Existem 9 rotas disponíveis para acesso. Todas elas são, obviamente, precedida
   **método**: *POST*  
   **body**: Requer o envio da nova senha que o usuário deseja que sua conta possua.  
   **headers**: Requer o envio de um token de autenticação em Authorization. Exemplo: "Authorization": "Bearer ${token}"  
-  **retorno**: 
+  **retorno**:
 *   Em caso de sucesso:
     * Status: 200
     * Retorna um objeto JSON contendo as informações do usuário recém-recuperado, com exceção da sua senha.
