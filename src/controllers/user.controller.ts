@@ -26,7 +26,7 @@ export async function deleteController (req: Request, res: Response) {
     const { id } = req.user
     await deleteService(id)
 
-    return res.status(204).send()
+    return res.status(200).send()
 }
 
 export async function getUserController (req: Request, res: Response) {
