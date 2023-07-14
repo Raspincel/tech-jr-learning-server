@@ -1,4 +1,4 @@
-#Tech Jr Learning Server
+# Tech Jr Learning Server
 
 Projeto desenvolvido com o propósito de dar um espaço para membros da Tech Jr (e, possivelmente, alunos do Instituto Federal do Maranhão no geral), especialmente aqueles que estão iniciando seus estudos em servidores e requisições ao backend, praticarem algumas requisições sem precisarem tocar em uma única linha de código. Dessa forma, é possível explorar conceitos como:
 *   O uso de diferentes métodos para realizar diferentes requisições, mesmo em um mesmo endereço
@@ -11,7 +11,7 @@ Existem 9 rotas disponíveis para acesso. Todas elas são, obviamente, precedida
 ## '/users/register'
 É uma das rotas mais importantes, visto que é possível possuir uma conta para acessar qualquer outra rota.
 ### Infos
-  **método**: *POST*
+  **método**: *POST*  
   **body**: Requer o envio do e-mail acadêmico, o nome (não necessariamente o nome real) do indivíduo e uma senha. Para que seja aprovada, a senha não possui tamanho mínimo ou necessidade de caracteres especiais, dada a trivialidade da aplicação.
   **retorno**: 
 *   Em caso de sucesso:
@@ -27,8 +27,10 @@ Existem 9 rotas disponíveis para acesso. Todas elas são, obviamente, precedida
     * Status: 409
     * Retorna um objeto JSON com o motivo de a requisição ter falhado.
 
-# '/users/login'
-  **método**: *POST*
+## '/users/login'
+É outra rota bastante importante, sendo o token que retorna necessário para acessar quase todas as rotas.
+### Infos
+  **método**: *POST*  
   **body**: Requer o envio do e-mail e senha com os quais o usuário se cadastrou.
   **retorno**: 
 *   Em caso de sucesso:
