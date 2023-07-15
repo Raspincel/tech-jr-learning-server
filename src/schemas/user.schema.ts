@@ -31,11 +31,11 @@ yup.addMethod(yup.object, 'atLeastOneOf', function (list) {
   })
 })
 
-export const UpdateSchema = yup
+export const UpdateSchema = (yup
   .object()
   .shape({
     email: yup.string().email(),
     password: yup.string(),
     name: yup.string(),
-  })
+  }) as any)
   .atLeastOneOf(['email', 'password', 'name'])
