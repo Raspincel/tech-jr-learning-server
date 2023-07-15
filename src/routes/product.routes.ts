@@ -45,6 +45,6 @@ productRouter.get(
   getProductController,
 )
 
-productRouter.get('/list', validateTokenMiddleware, queryProductsController) // params --> name, minPrice, maxPrice
+productRouter.get('/list', validateTokenMiddleware, queryProductsController)
 
 export default productRouter
