@@ -1,21 +1,25 @@
 import prisma from '../../database'
 import { hash } from 'bcryptjs'
 
+interface iUpdateService {
+  email: string
+  password: string
+  name: string
+}
+
 export default async function updateService(
-  email: string,
-  newPassword,
-  newName,
-  newEmail,
+  oldEmail: string,
+  { email, password, name }: iUpdateService,
 ) {
   const user = await prisma.user.update({
     where: {
-      email,
+      email: oldEmail,
     },
     data: {
-      password: newPassword ? await hash(newPassword, 10) : newPassword,
-      name: newName,
+      password: password ? await hash(password, 10) : password,
+      name,
+      email,
       updatedAt: new Date(),
-      email: newEmail,
     },
   })
 
