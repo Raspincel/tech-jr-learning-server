@@ -54,12 +54,13 @@ export async function resetPasswordController(req: Request, res: Response) {
 }
 
 export async function updateController(req: Request, res: Response) {
-  const { email } = req.user
-  const newEmail = req.body.email
-  const newName = req.body.name
-  const newPassword = req.body.password
+  const { email, password, name } = req.body as {
+    email: string
+    password: string
+    name: string
+  }
 
-  const updatedUser = await updateService(email, newPassword, newName, newEmail)
+  const user = await updateService(req.user.email, { email, password, name })
 
-  return res.status(200).json({ updatedUser })
+  return res.status(200).json({ user })
 }
