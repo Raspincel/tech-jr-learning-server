@@ -2,13 +2,16 @@
 import emailValidator from 'deep-email-validator'
 import { Request, Response, NextFunction } from 'express'
 import { AppError } from '../../../error'
+import prisma from '../../../database'
 
-export default async function verifyEmailValidity(
+export default async function verifyEmailIntegrity(
   req: Request,
   res: Response,
   next: NextFunction,
 ) {
   const { email } = req.body as { email: string }
+
+  if (!email) return next()
 
   const isValidEmail = email.endsWith('@acad.ifma.edu.br')
 
@@ -26,6 +29,21 @@ export default async function verifyEmailValidity(
       message: `(${req.method}) User tried to register with a false email. It is necessary to use a real email in this application`,
       email,
     })
+
+  const user = await prisma.user.findFirst({
+    where: { email },
+  })
+
+  if (user) {
+    throw new AppError(
+      409,
+      `This email is already registered. Please try with another email. If you think this is an error, please contact the developers`,
+      {
+        message: `(${req.method}) User tried to change using the e-mail ${user.email}, but this e-mail was already registered and is owned by ${user.name}`,
+        email: req.user.email,
+      },
+    )
+  }
 
   next()
 }

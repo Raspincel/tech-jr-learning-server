@@ -1,11 +1,9 @@
-import prisma from "../../database"
+import prisma from '../../database'
 
 export default async function deleteProductService(name: string) {
-    await prisma.product.delete({
-        where: {
-            name
-        }
-    })
-
-    return;
+  await prisma.product.delete({
+    where: {
+      name,
+    },
+  })
 }
