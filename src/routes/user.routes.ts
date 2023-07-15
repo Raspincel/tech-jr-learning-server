@@ -15,7 +15,7 @@ import verifyEmailAvailabilityMiddleware from '../middlewares/user/register/veri
 import validateTokenMiddleware from '../middlewares/validateToken.middleware'
 import verifyPasswordMiddleware from '../middlewares/user/login/verifyPassword.middleware'
 import verifyEmailIntegrity from '../middlewares/user/update/verifyEmailIntegrity.middleware'
-import verifyNamePasswordAvailability from '../middlewares/user/update/verifyNamePasswordAvailability.middleware'
+import verifyDataRepetition from '../middlewares/user/update/verifyDataRepetition.middleware'
 
 // controllers
 import {
@@ -48,15 +48,6 @@ userRouter.post(
   loginController,
 )
 
-userRouter.patch(
-  '/update',
-  verifyShape(UpdateSchema),
-  verifyEmailIntegrity,
-  validateTokenMiddleware,
-  verifyNamePasswordAvailability,
-  updateController,
-)
-
 userRouter.delete('', validateTokenMiddleware, deleteController)
 
 userRouter.get('', validateTokenMiddleware, getUserController)
@@ -73,6 +64,15 @@ userRouter.post(
   verifyShape(ResetSchema),
   validateTokenMiddleware,
   resetPasswordController,
+)
+
+userRouter.patch(
+  '',
+  verifyShape(UpdateSchema),
+  validateTokenMiddleware,
+  verifyEmailIntegrity,
+  verifyDataRepetition,
+  updateController,
 )
 
 export default userRouter

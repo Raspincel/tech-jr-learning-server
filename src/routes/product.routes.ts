@@ -8,31 +8,43 @@ import verifyExistenceRegisterMiddleware from '../middlewares/product/verifyExis
 import verifyExistenceDeleteMiddleware from '../middlewares/product/verifyExistenceDelete.middleware'
 
 // controllers
-import { deleteProductController, getAllController, registerProductController } from '../controllers/product.controller'
+import {
+  deleteProductController,
+  getAllController,
+  getProductController,
+  queryProductsController,
+  registerProductController,
+} from '../controllers/product.controller'
 
 // routes
 import { Router } from 'express'
+import { verifyNameMiddleware } from '../middlewares/product/verifyName.middleware'
 const productRouter = Router()
 
 productRouter.post(
-    '', 
-    verifyShape(RegisterSchema), 
-    validateTokenMiddleware,
-    verifyExistenceRegisterMiddleware,
-    registerProductController
+  '',
+  verifyShape(RegisterSchema),
+  validateTokenMiddleware,
+  verifyExistenceRegisterMiddleware,
+  registerProductController,
 )
 
 productRouter.delete(
-    '/:name',
-    validateTokenMiddleware,
-    verifyExistenceDeleteMiddleware,
-    deleteProductController
+  '/:name',
+  validateTokenMiddleware,
+  verifyExistenceDeleteMiddleware,
+  deleteProductController,
 )
 
+productRouter.get('', validateTokenMiddleware, getAllController)
+
 productRouter.get(
-    '/all',
-    validateTokenMiddleware,
-    getAllController
+  '/one/:name',
+  validateTokenMiddleware,
+  verifyNameMiddleware,
+  getProductController,
 )
+
+productRouter.get('/list', validateTokenMiddleware, queryProductsController) // params --> name, minPrice, maxPrice
 
 export default productRouter
