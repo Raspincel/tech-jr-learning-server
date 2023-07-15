@@ -1,6 +1,12 @@
 // schemas
 import verifyShape from '../schemas/verifyShape.schema'
-import { ForgotSchema, LoginSchema, RegisterSchema, ResetSchema } from '../schemas/user.schema'
+import {
+  ForgotSchema,
+  LoginSchema,
+  RegisterSchema,
+  ResetSchema,
+  UpdateSchema,
+} from '../schemas/user.schema'
 
 // middlewares
 import verifyEmailValidity from '../middlewares/user/register/verifyEmailValidity.middleware'
@@ -8,8 +14,10 @@ import verifyEmailExistanceMiddleware from '../middlewares/user/login/verifyEmai
 import verifyEmailAvailabilityMiddleware from '../middlewares/user/register/verifyEmailAvailability.middleware'
 import validateTokenMiddleware from '../middlewares/validateToken.middleware'
 import verifyPasswordMiddleware from '../middlewares/user/login/verifyPassword.middleware'
+import verifyEmailIntegrity from '../middlewares/user/update/verifyEmailIntegrity.middleware'
+import verifyNamePasswordAvailability from '../middlewares/user/update/verifyNamePasswordAvailability.middleware'
 
-// controllers 
+// controllers
 import {
   registerController,
   loginController,
@@ -17,8 +25,8 @@ import {
   getUserController,
   sendResetTokenController,
   resetPasswordController,
+  updateController,
 } from '../controllers/user.controller'
-
 
 // routes
 import { Router } from 'express'
@@ -38,6 +46,15 @@ userRouter.post(
   verifyEmailExistanceMiddleware,
   verifyPasswordMiddleware,
   loginController,
+)
+
+userRouter.patch(
+  '/update',
+  verifyShape(UpdateSchema),
+  verifyEmailIntegrity,
+  validateTokenMiddleware,
+  verifyNamePasswordAvailability,
+  updateController,
 )
 
 userRouter.delete('', validateTokenMiddleware, deleteController)
