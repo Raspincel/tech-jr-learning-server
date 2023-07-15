@@ -28,7 +28,7 @@ export default async function validateTokenMiddleware(
     req.body.email = email
 
     const user = await prisma.user.findUnique({ where: { email } })
-    req.user = { ...user, password: undefined }
+    req.user = { ...user }
     next()
   } catch (err) {
     throw new AppError(
