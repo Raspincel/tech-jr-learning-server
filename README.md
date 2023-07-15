@@ -27,9 +27,9 @@ Existem 9 rotas disponíveis para acesso. Todas elas são, obviamente, precedida
     * Status: 409
     * Retorna um objeto JSON com o motivo de a requisição ter falhado.
 
-# '/user/login'
+## '/user/login'
 É a rota que permite que o usuário receba um token que usará para autenticar sua identidade em outras partes da aplicação.
-## Infos
+### Infos
   **método**: *POST*  
   **body**: Requer o envio do e-mail e senha com os quais o usuário se cadastrou.  
   **retorno**:
@@ -43,9 +43,9 @@ Existem 9 rotas disponíveis para acesso. Todas elas são, obviamente, precedida
     * Status: 404
     * Retorna um objeto JSON afirmando que não existe conta associada ao e-mail enviado.
 
-# '/user'
+## '/user'
 Permite que o usuário delete a própria conta, incluindo todos os produtos que cadastrou.
-## Infos
+### Infos
   **método**: *DELETE*  
   **headers**: Requer o envio de um token de autenticação em Authorization. Exemplo: "Authorization": "Bearer ${token}"  
   **retorno**:
@@ -59,9 +59,9 @@ Permite que o usuário delete a própria conta, incluindo todos os produtos que 
     * Status: 404
     * Retorna uma mensagem de erro afirmando que não há usuário registrado associado a esse token
 
-# '/user'
+## '/user'
 Retorna as informações do usuário.
-## Infos
+### Infos
   **método**: *GET*  
   **headers**: Requer o envio de um token de autenticação em Authorization. Exemplo: "Authorization": "Bearer ${token}"  
   **retorno**:
@@ -75,9 +75,9 @@ Retorna as informações do usuário.
     * Status: 404
     * Retorna uma mensagem de erro afirmando que não há usuário registrado associado a esse token
 
-# '/user/forgot'
+## '/user/forgot'
 Rota para quando o usuário esquecer sua senha. Envia um e-mail com um token que deve ser usado para resetar a senha na rota '/user/reset'
-## Infos
+### Infos
   **método**: *POST*  
   **body**: Requer o envio do e-mail da conta que o usuário deseja recuperar.  
   **retorno**:
@@ -91,9 +91,9 @@ Rota para quando o usuário esquecer sua senha. Envia um e-mail com um token que
     * Status: 404
     * Retorna um objeto JSON afirmando que não existe conta associada ao email enviado.
 
-# '/user/reset'
+## '/user/reset'
 Rota para redefinir a senha do usuário, contanto que envie um token válido (seja aquele obtido ao fazer login, ou aquele enviado em seu e-mail)
-## Infos
+### Infos
   **método**: *POST*  
   **body**: Requer o envio da nova senha que o usuário deseja que sua conta possua.  
   **headers**: Requer o envio de um token de autenticação em Authorization. Exemplo: "Authorization": "Bearer ${token}"  
@@ -108,9 +108,9 @@ Rota para redefinir a senha do usuário, contanto que envie um token válido (se
     * Status: 404
     * Retorna uma mensagem de erro afirmando que não há usuário registrado associado a esse token
 
-# '/user'
+## '/user'
 Rota para alterar todas as informações básicas do usuário: e-mail, nome e senha.
-## Infos
+### Infos
   **método**: *PATCH*  
   **body**: Opcionalmente recebe o novo e-mail, nome e senha que o usuário deseja possuir.
   **headers**: Requer o envio de um token de autenticação em Authorization. Exemplo: "Authorization": "Bearer ${token}"  
@@ -137,9 +137,9 @@ Rota para alterar todas as informações básicas do usuário: e-mail, nome e se
     * Status: 409
     * Retorna uma mensagem de erro informando o usuário sobre a necessidade de alterar de forma significante algum campo
 
-# '/product'
+## '/product'
 Rota para a criação de novos produtos.
-## Infos
+### Infos
   **método**: *POST*  
   **body**: Recebe o nome (string) e o preço do produto (número). 
   **headers**: Requer o envio de um token de autenticação em Authorization. Exemplo: "Authorization": "Bearer ${token}"  
@@ -160,9 +160,9 @@ Rota para a criação de novos produtos.
     * Status: 409
     * Retorna um objeto JSON com o motivo de a requisição ter falhado. 
 
-# '/product/:name'
+## '/product/:name'
 Rota para a deleção de algum produto anteriormente registrado. Ex: '/product/xadrez gamer'.
-## Infos
+### Infos
   **método**: *DELETE*  
   **headers**: Requer o envio de um token de autenticação em Authorization. Exemplo: "Authorization": "Bearer ${token}"  
   **retorno**:
@@ -185,9 +185,9 @@ Rota para a deleção de algum produto anteriormente registrado. Ex: '/product/x
     * Status: 409
     * Retorna um objeto JSON com o motivo de a requisição ter falhado. 
 
-# '/product'
+## '/product'
 Rota para recuperar todos os produtos que o usuário cadastrou e não deletou.
-## Infos
+### Infos
   **método**: *GET*  
   **headers**: Requer o envio de um token de autenticação em Authorization. Exemplo: "Authorization": "Bearer ${token}"  
   **retorno**:
@@ -201,9 +201,9 @@ Rota para recuperar todos os produtos que o usuário cadastrou e não deletou.
     * Status: 404
     * Retorna uma mensagem de erro afirmando que não há usuário registrado associado a esse token
 
-# '/product/one/:name'
+## '/product/one/:name'
 Rota para buscar um dos produtos registrados anteriormente, sendo necessário colocar o nome exato. Ex: '/product/one/xadrez gamer' em vez de '/product/one/xadrez g'.
-## Infos
+### Infos
   **método**: *GET*  
   **headers**: Requer o envio de um token de autenticação em Authorization. Exemplo: "Authorization": "Bearer ${token}"  
   **retorno**:
@@ -220,9 +220,9 @@ Rota para buscar um dos produtos registrados anteriormente, sendo necessário co
     * Status: 404
     * Retorna uma mensagem de erro afirmando que não há usuário registrado associado a esse token
 
-# '/product/list'
+## '/product/list'
 Rota para buscar vários produtos de uma vez com base em _queries_ (ou, a depender do contexto, "parâmetros") enviadas na requisição. Exemplo: '/product/list?name=xad&minPrice=2'
-## Infos
+### Infos
   **método**: *GET*  
   **headers**: Requer o envio de um token de autenticação em Authorization. Exemplo: "Authorization": "Bearer ${token}"  
   **retorno**:
