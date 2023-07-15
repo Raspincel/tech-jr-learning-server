@@ -96,4 +96,31 @@ Existem 9 rotas disponíveis para acesso. Todas elas são, obviamente, precedida
     * Retorna um objeto JSON com informações sobre a ausência do senha
 *   Ao enviar um token inválido:
     * Status: 404
+    * Retorna uma mensagem de erro afirmando que não há usuário no registrado associado a esse token
+
+# '/user'
+  **método**: *POST*  
+  **body**: Opcionalmente recebe o novo e-mail, nome e senha que o usuário deseja possuir.
+  **headers**: Requer o envio de um token de autenticação em Authorization. Exemplo: "Authorization": "Bearer ${token}"  
+  **retorno**:
+*   Em caso de sucesso:
+    * Status: 200
+    * Retorna um objeto JSON contendo as informações do usuário em seu novo estado, com exceção da sua senha.
+*   Ao deixar de enviar um e-mail E uma senha E um nome no _body_ requisição:
+    * Status: 400
+    * Retorna um objeto JSON com informações sobre a ausência de quaisquer campos
+*   Ao deixar de enviar um token no headers:
+    * Status: 401
+    * Retorna uma mensagem de erro afirmando que as credenciais para realizar a operação são inválidas, com um lembrete de que talvez a ausência de um token seja o problema
+*   Caso não envie o próprio e-mail acadêmico:
+    * Status: 401
+    * Retorna um objeto JSON com informações sobre o motivo de o e-mail não ser aceito        
+*   Ao enviar um token inválido:
+    * Status: 404
     * Retorna uma mensagem de erro afirmando que não há usuário no registrado a esse token
+*   Ao tentar registrar um novo e-mail que já está sendo utilizado por outra conta:
+    * Status: 409
+    * Retorna um objeto JSON com o motivo de a requisição ter falhado. 
+*   Ao tentar cadastrar um novo campo (e-mail, nome ou senha) idêntico a como estava anteriormente:
+    * Status: 409
+    * Retorna uma mensagem de erro informando o usuário sobre a necessidade de alterar de forma significante algum campo
