@@ -5,6 +5,8 @@ import registerProductService from '../services/products/register.service'
 import getProductService from '../services/products/getProduct.service'
 import { queryProductsService } from '../services/products/queryProducts.service'
 
+import logActionService from '../services/logAction.service'
+
 export async function registerProductController(
   req: Request,
   res: Response,
@@ -14,7 +16,7 @@ export async function registerProductController(
   const data = req.body as { name: string; price: number }
 
   const product = await registerProductService({ email, data })
-
+  logActionService({ user: email, description: "User created a new product"})
   return res.status(201).json({ product })
 }
 
@@ -24,8 +26,10 @@ export async function deleteProductController(
   next: NextFunction,
 ) {
   const { name } = req.params as { name: string }
+  const { email } = req.user
 
-  await deleteProductService(name)
+  const product = await deleteProductService(name)
+  logActionService({ user: email, description: `User deleted a product: ${product}`})
 
   return res.status(200).send()
 }
@@ -38,6 +42,7 @@ export async function getAllController(
   const { email } = req.user
 
   const products = await getAllService(email)
+  logActionService({ user: email, description: "User got all products from database "})
 
   return res.status(200).json({ products })
 }
@@ -48,8 +53,10 @@ export async function getProductController(
   next: NextFunction,
 ) {
   const { name } = req.params
+  const { email } = req.user
 
   const product = await getProductService(name)
+  logActionService({ user: email, description: `User got (or at least tried to get) the product ${name} from database and received ${product}`})
 
   return res.status(200).json({ product })
 }
@@ -72,6 +79,8 @@ export async function queryProductsController(
     maxPrice,
     email,
   })
+
+  logActionService({ user: email, description: `User queried (or at least tried to query) the database with the queries set as: minPrice=${minPrice}, maxPrice=${maxPrice}, name=${name} and received ${products}`})
 
   return res.status(200).json({ products })
 }

@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
 
 export default async function loginService(email: string) {
-  const token = await jwt.sign(
+  const token = jwt.sign(
     {
       email,
     },
