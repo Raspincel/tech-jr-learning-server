@@ -6,7 +6,7 @@ Projeto desenvolvido com o propósito de dar um espaço para membros da Tech Jr 
 *   O uso de parâmetros para passar diferentes informações que alteram o objeto retornado da requisição
 *   JSON, ciclo de vida de um token, aprendendo a ler a documentação, etc.
 
-Existem 9 rotas disponíveis para acesso. Todas elas são, obviamente, precedidas pela URL do local em que o servidor está rodando.
+Existem 12 rotas disponíveis para acesso. Todas elas são, obviamente, precedidas pela URL do local em que a API está rodando.
 
 ## '/user/register'
 É uma das rotas mais importantes, visto que é preciso possuir uma conta para acessar qualquer outra rota.
