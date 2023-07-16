@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import prisma from './database'
-
+import { ValidationError } from 'yup'
 interface LogContent {
   message: string
   id?: string
@@ -40,5 +40,13 @@ export async function errorHandler(
 
     return
   }
+
+  if (err.name === "SyntaxError") {
+    res.status(400).json({ message: "Please send a proper JSON object" })
+    return;
+  }
+
+  console.log(err)
+
   res.status(500).json({ message: 'Error interno do servidor.' })
 }

@@ -69,8 +69,8 @@ userRouter.post(
 userRouter.patch(
   '',
   verifyShape(UpdateSchema),
-  verifyEmailIntegrity,
   validateTokenMiddleware,
+  verifyEmailIntegrity,
   verifyDataRepetition,
   updateController,
 )

@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
-import { compare } from 'bcrypt'
+import { compare } from 'bcryptjs'
 import { AppError } from '../../../error'
 
 export default async function verifyPasswordMiddleware(
@@ -9,7 +9,7 @@ export default async function verifyPasswordMiddleware(
 ) {
   const { email, password } = req.body as { email: string; password: string }
 
-  const isCorrectPassword = compare(password, req.user.password)
+  const isCorrectPassword = await compare(password, req.user.password)
 
   if (!isCorrectPassword)
     throw new AppError(409, 'Incorrect password. Please try again.', {

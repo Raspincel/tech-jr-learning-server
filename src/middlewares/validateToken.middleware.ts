@@ -21,13 +21,17 @@ export default async function validateTokenMiddleware(
       },
     )
 
+  let errorEmail = ""
   try {
     const { email } = jwt.verify(token, process.env.SECRET_KEY) as {
       email: string
     }
-    req.body.email = email
 
+    errorEmail = email
     const user = await prisma.user.findUnique({ where: { email } })
+    
+    if (!user) throw Error;
+
     req.user = { ...user }
     next()
   } catch (err) {
@@ -36,7 +40,7 @@ export default async function validateTokenMiddleware(
       'There is no user associated to the token you sent.',
       {
         message: `(${req.method}) User either sent an invalid token when trying to access ${req.url}, or sent a token containing an email that is not registered in the database`,
-        email: req.body.email ? req.body.email : undefined,
+        email: errorEmail ?? undefined,
       },
     )
   }

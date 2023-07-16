@@ -10,7 +10,7 @@ export default async function verifyNamePasswordAvailability(
 ) {
   const { password, name } = req.user
 
-  const samePassword = await compare(req.body.password, password)
+  const samePassword = req.body.password ? await compare(req.body.password, password) : undefined
 
   if (samePassword || name === req.body.name) {
     throw new AppError(
